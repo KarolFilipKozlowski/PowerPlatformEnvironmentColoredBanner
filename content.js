@@ -41,7 +41,7 @@ function createEnvironmentBanner(environmentId, environmentType, backgroundColor
   }
   
   // Prepare the banner text with description in parentheses if it's not empty
-  const bannerText = `Environment Type: ${environmentType.toUpperCase()}${environmentDesc ? ` (${environmentDesc})` : ""}`;
+  const bannerText = `Environment type: ${environmentType.toUpperCase()}${environmentDesc ? ` (${environmentDesc})` : ""}`;
 
   // Apply background and text colors
   banner.style.backgroundColor = backgroundColor;
@@ -77,8 +77,15 @@ function monitorEnvironmentChanges() {
   const checkEnvironmentId = () => {
       const url = new URL(window.location.href);
       const pathSegments = url.pathname.split('/');
-      const environmentIdIndex = pathSegments.indexOf("environments") + 1;
-      const environmentId = pathSegments[environmentIdIndex];
+
+      // Check both /environments/ and /e/ for the environment ID
+      const environmentIdIndex = pathSegments.includes("environments")
+          ? pathSegments.indexOf("environments") + 1
+          : pathSegments.includes("e")
+          ? pathSegments.indexOf("e") + 1
+          : -1;
+
+      const environmentId = environmentIdIndex > 0 ? pathSegments[environmentIdIndex] : null;
 
       // Update the banner if the environment ID has changed
       if (environmentId && environmentId !== lastEnvironmentId) {
