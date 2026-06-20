@@ -33,7 +33,10 @@
         "https://make.gov.powerapps.us/*",
 
         "https://make.preview.powerapps.com/*",
-        "https://make.preview.powerautomate.com/*"
+        "https://make.preview.powerautomate.com/*",
+
+        "https://make.powerpages.microsoft.com/*",
+        "https://admin.powerplatform.microsoft.com/*"
       ],
       "js": [
         "content.js"

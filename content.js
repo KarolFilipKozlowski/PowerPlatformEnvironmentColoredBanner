@@ -97,6 +97,7 @@ function displayEnvironmentBanner(environmentId) {
 // Function to monitor URL changes and update the banner
 function monitorEnvironmentChanges() {
   let lastEnvironmentId = null;
+  let isChecking = false;
 
   const checkEnvironmentId = () => {
     const url = new URL(window.location.href);
@@ -113,17 +114,31 @@ function monitorEnvironmentChanges() {
 
     const environmentId = environmentIdIndex > 0 ? pathSegments[environmentIdIndex] : null;
 
-    // Compare normalized so casing changes in the URL don't trigger a redundant update
     if (environmentId && environmentId.toLowerCase() !== lastEnvironmentId) {
       lastEnvironmentId = environmentId.toLowerCase();
       displayEnvironmentBanner(environmentId);
     }
   };
 
-  const observer = new MutationObserver(checkEnvironmentId);
+  // Throttle MutationObserver callbacks via requestAnimationFrame
+  const throttledCheck = () => {
+    if (isChecking) return;
+    isChecking = true;
+    requestAnimationFrame(() => {
+      checkEnvironmentId();
+      isChecking = false;
+    });
+  };
+
+  const observer = new MutationObserver(throttledCheck);
   observer.observe(document.body, { childList: true, subtree: true });
 
-  setInterval(checkEnvironmentId, 1000);
+  // History API events as additional triggers (cover back/forward navigation)
+  window.addEventListener("popstate", checkEnvironmentId);
+  window.addEventListener("hashchange", checkEnvironmentId);
+
+  // Initial check on page load
+  checkEnvironmentId();
 }
 
 // Start monitoring environment changes on page load
