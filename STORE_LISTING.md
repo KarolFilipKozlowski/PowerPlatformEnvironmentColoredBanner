@@ -120,23 +120,12 @@ The content script reads only `window.location.href` (to extract the environment
 
 *(Both stores require a privacy policy URL if the extension accesses user data or injects scripts into pages. A minimal policy text is provided below — host it at your domain.)*
 
-**Suggested URL:** `https://citdev.pl/privacy-policy-power-platform-environment-colored-banner/`
-
-**Suggested policy text:**
-
+**URL:**
 ```
-Privacy Policy — Power Platform Environment Colored Banner
-
-Last updated: 2026-06-20
-
-This extension does not collect, store on external servers, or transmit any personal data or usage information.
-
-All data entered by the user (environment IDs, colors, descriptions, SVG icons) is stored exclusively in the browser's built-in storage APIs (chrome.storage.sync and chrome.storage.local) and never leaves the browser, except for the standard Chrome sync mechanism that synchronizes chrome.storage.sync data between the user's own signed-in devices.
-
-The extension does not use analytics, crash reporting, advertising, or any third-party services.
-
-Contact: citdev.pl
+https://github.com/KarolFilipKozlowski/PowerPlatformEnvironmentColoredBanner/blob/main/PRIVACY_POLICY.md
 ```
+
+The privacy policy is maintained as `PRIVACY_POLICY.md` in this repository. Both Chrome Web Store and Microsoft Edge Add-ons accept GitHub repository URLs as valid privacy policy links.
 
 ---
 
