@@ -13,6 +13,19 @@
     body {
       background-image: url("bg.webp");
     }
+    .icon-cell {
+      width: 40px;
+    }
+    .icon-cell svg {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+    #icon-preview svg {
+      width: 40px;
+      height: 40px;
+      display: block;
+    }
   </style>
 </head>
 
@@ -21,19 +34,22 @@
     <!-- Environment configuration form -->
     <form id="environment-form">
       <div class="mb-3">
-        <h3 class="h3 mb-3 fw-normal"><img class="mb-3" src="icon48.png" alt="" width="48" height="48"> Add environment:</h3>
+        <h3 class="h3 mb-3 fw-normal">
+          <img class="mb-3" src="icon48.png" alt="" width="48" height="48">
+          <span id="form-title-text">Add environment:</span>
+        </h3>
       </div>
       <!-- Input for environment ID -->
       <div class="mb-3">
         <label for="environment-id">Environment ID</label>
         <input type="text" class="form-control" id="environment-id" required>
-        <div id="email-environment-id" class="form-text">Copy the ID from URL make.powerapps.com/environments/<u>ID</u>/ (or environments/<u>Default-ID</u>).</div>
+        <div class="form-text">Copy the ID from URL make.powerapps.com/environments/<u>ID</u>/ (or environments/<u>Default-ID</u>).</div>
       </div>
       <div class="row">
         <!-- Input for background color -->
         <div class="mb-3 col-md-2">
           <label for="environment-color">Background color</label>
-          <input type="color" class="form-control" style="width: 76px; height: 38px;" id="environment-color" required>
+          <input type="color" class="form-control" style="width: 76px; height: 38px;" id="environment-color" value="#ffffff" required>
         </div>
         <!-- Dropdown for environment type -->
         <div class="mb-3 col-md-3">
@@ -54,7 +70,23 @@
           <input type="text" class="form-control" id="environment-desc">
         </div>
       </div>
-      <button class="btn btn-primary" style="width: 100px;" type="submit">Save</button>
+      <!-- SVG icon upload -->
+      <div class="mb-3">
+        <label for="environment-icon">Environment icon (SVG)</label>
+        <div class="d-flex align-items-center gap-2 mt-1">
+          <input type="file" class="form-control" id="environment-icon" accept=".svg,image/svg+xml">
+          <div id="icon-preview"
+               class="border rounded d-flex align-items-center justify-content-center flex-shrink-0"
+               style="width: 48px; height: 48px;"></div>
+          <button type="button" id="remove-icon-btn" class="btn btn-sm btn-outline-secondary flex-shrink-0" style="display: none;" title="Remove icon">
+            <i class="bi bi-x-circle"></i>
+          </button>
+        </div>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-primary" style="width: 100px;" id="submit-btn" type="submit">Save</button>
+        <button class="btn btn-outline-secondary" id="cancel-btn" type="button" style="display: none;">Cancel</button>
+      </div>
     </form>
     <hr>
     <h4 class="h4 mb-3 fw-normal">Added environments:</h4>
@@ -64,11 +96,12 @@
       <thead>
         <tr>
           <th scope="col">#</th>
+          <th scope="col" style="width: 40px;">Icon</th>
           <th scope="col">Environment ID</th>
-          <th scope="col" style="width: 210px;">Environment type</th>
-          <th scope="col" style="width: 210px;">Background color</th>
+          <th scope="col" style="width: 180px;">Environment type</th>
+          <th scope="col" style="width: 140px;">Background color</th>
           <th scope="col">Description</th>
-          <th scope="col"></th>
+          <th scope="col" style="width: 90px;"></th>
         </tr>
       </thead>
       <tbody id="environment-list"></tbody>
