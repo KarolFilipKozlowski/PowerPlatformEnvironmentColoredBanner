@@ -39,9 +39,31 @@ Working across multiple environments (production, sandbox, UAT, developer…) ma
 | Power Apps Preview | `make.preview.powerapps.com` |
 | Power Automate Preview | `make.preview.powerautomate.com` |
 
+### Installation without the store (manual / sideload)
+
+You can install the extension directly from a ZIP file without using the Chrome Web Store or Microsoft Edge Add-ons.
+
+**Download:** [`PowerPlatformEnvironmentColoredBanner-v3.0.zip`](https://github.com/KarolFilipKozlowski/PowerPlatformEnvironmentColoredBanner/raw/main/PowerPlatformEnvironmentColoredBanner-v3.0.zip)
+
+**Google Chrome:**
+1. Download and **unzip** the file to a folder on your computer.
+2. Open Chrome and go to `chrome://extensions`.
+3. Enable **Developer mode** (toggle in the top-right corner).
+4. Click **Load unpacked** and select the unzipped folder.
+5. The extension icon appears in the toolbar — click it to open settings.
+
+**Microsoft Edge:**
+1. Download and **unzip** the file to a folder on your computer.
+2. Open Edge and go to `edge://extensions`.
+3. Enable **Developer mode** (toggle in the bottom-left corner).
+4. Click **Load unpacked** and select the unzipped folder.
+5. The extension icon appears in the toolbar — click it to open settings.
+
+> **Note:** Extensions installed in Developer mode display a warning banner each time the browser starts — this is normal behavior for sideloaded extensions. To avoid this, install from the official store.
+
 ### How to use
 
-1. Install the extension and click its icon to open the settings page.
+1. Click the extension icon to open the settings page.
 2. Enter the **Environment ID** (GUID) — copy it from the URL: `make.powerapps.com/environments/`**`<ID>`**`/`
 3. Pick a **background color** using the color picker.
 4. Select an **environment type** (or choose *Custom…* and type your own).
@@ -95,9 +117,31 @@ Praca w wielu środowiskach (produkcja, sandbox, testy, deweloper…) łatwo pro
 | Power Apps Preview | `make.preview.powerapps.com` |
 | Power Automate Preview | `make.preview.powerautomate.com` |
 
+### Instalacja bez sklepu (ręczna / sideload)
+
+Rozszerzenie można zainstalować bezpośrednio z pliku ZIP, bez korzystania z Chrome Web Store ani Microsoft Edge Add-ons.
+
+**Pobierz:** [`PowerPlatformEnvironmentColoredBanner-v3.0.zip`](https://github.com/KarolFilipKozlowski/PowerPlatformEnvironmentColoredBanner/raw/main/PowerPlatformEnvironmentColoredBanner-v3.0.zip)
+
+**Google Chrome:**
+1. Pobierz i **rozpakuj** plik do wybranego folderu na komputerze.
+2. Otwórz Chrome i przejdź do `chrome://extensions`.
+3. Włącz **Tryb deweloperski** (przełącznik w prawym górnym rogu).
+4. Kliknij **Załaduj rozpakowane** i wskaż rozpakowany folder.
+5. Ikona rozszerzenia pojawi się na pasku narzędzi — kliknij ją, aby otworzyć ustawienia.
+
+**Microsoft Edge:**
+1. Pobierz i **rozpakuj** plik do wybranego folderu na komputerze.
+2. Otwórz Edge i przejdź do `edge://extensions`.
+3. Włącz **Tryb dewelopera** (przełącznik w lewym dolnym rogu).
+4. Kliknij **Załaduj rozpakowane** i wskaż rozpakowany folder.
+5. Ikona rozszerzenia pojawi się na pasku narzędzi — kliknij ją, aby otworzyć ustawienia.
+
+> **Uwaga:** Rozszerzenia zainstalowane w trybie deweloperskim wyświetlają ostrzeżenie przy każdym uruchomieniu przeglądarki — jest to normalne zachowanie dla rozszerzeń zainstalowanych ręcznie. Aby tego uniknąć, zainstaluj rozszerzenie z oficjalnego sklepu.
+
 ### Jak używać
 
-1. Zainstaluj rozszerzenie i kliknij jego ikonę, aby otworzyć stronę ustawień.
+1. Kliknij ikonę rozszerzenia, aby otworzyć stronę ustawień.
 2. Wpisz **Environment ID** (GUID) — skopiuj go z adresu URL: `make.powerapps.com/environments/`**`<ID>`**`/`
 3. Wybierz **kolor tła** za pomocą selektora kolorów.
 4. Wybierz **typ środowiska** (lub „Custom…" i wpisz własną nazwę).
