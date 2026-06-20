@@ -38,6 +38,25 @@
 
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
   <main class="form-signin m-auto border border-light-subtle shadow p-3 bg-white rounded w-50">
+    <!-- What's New banner (shown once after an update, dismissed by user) -->
+    <div id="whats-new" class="alert alert-primary mb-4" style="display: none;">
+      <div class="d-flex align-items-center mb-2">
+        <i class="bi bi-stars me-2 fs-5"></i>
+        <strong>What's new in version <span id="whats-new-version"></span></strong>
+        <button type="button" id="whats-new-close" class="btn-close ms-auto" aria-label="Dismiss"></button>
+      </div>
+      <ul class="mb-0 small">
+        <li>SVG icon per environment — upload a custom icon displayed in the banner</li>
+        <li>Edit existing environments directly from the list (pencil button)</li>
+        <li>Custom environment type — define your own type name beyond the presets</li>
+        <li>Three-section banner layout — type on the left, description centered, icon on the right</li>
+        <li>Live search — filter environments by ID, type or description</li>
+        <li>Toast notifications — no more blocking alert() dialogs</li>
+        <li>Support for Power Pages and Power Platform Admin Center</li>
+        <li>Case-insensitive environment ID matching</li>
+      </ul>
+    </div>
+
     <!-- Environment configuration form -->
     <form id="environment-form">
       <div class="mb-3">

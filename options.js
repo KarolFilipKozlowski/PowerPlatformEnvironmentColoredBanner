@@ -290,5 +290,19 @@ document.getElementById("environment-form").addEventListener("submit", (event) =
   });
 });
 
+// What's New banner — show once after update, clear badge on dismiss
+chrome.storage.local.get(["showWhatsNew", "whatsNewVersion"], (data) => {
+  if (data.showWhatsNew) {
+    document.getElementById("whats-new-version").textContent = data.whatsNewVersion || "";
+    document.getElementById("whats-new").style.display = "block";
+  }
+});
+
+document.getElementById("whats-new-close").addEventListener("click", () => {
+  document.getElementById("whats-new").style.display = "none";
+  chrome.action.setBadgeText({ text: "" });
+  chrome.storage.local.remove(["showWhatsNew", "whatsNewVersion"]);
+});
+
 // Initial load
 loadEnvironments();
