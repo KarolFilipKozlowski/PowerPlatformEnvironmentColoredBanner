@@ -13,27 +13,69 @@
     body {
       background-image: url("bg.webp");
     }
+    .icon-cell {
+      width: 40px;
+    }
+    .icon-cell svg {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+    #icon-preview svg {
+      width: 40px;
+      height: 40px;
+      display: block;
+    }
+    @keyframes toastSlideIn {
+      from { opacity: 0; transform: translateX(16px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    #toast-container .alert {
+      animation: toastSlideIn 0.25s ease;
+    }
   </style>
 </head>
 
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
   <main class="form-signin m-auto border border-light-subtle shadow p-3 bg-white rounded w-50">
+    <!-- What's New banner (shown once after an update, dismissed by user) -->
+    <div id="whats-new" class="alert alert-primary mb-4" style="display: none;">
+      <div class="d-flex align-items-center mb-2">
+        <i class="bi bi-stars me-2 fs-5"></i>
+        <strong>What's new in version <span id="whats-new-version"></span></strong>
+        <button type="button" id="whats-new-close" class="btn-close ms-auto" aria-label="Dismiss"></button>
+      </div>
+      <ul class="mb-0 small">
+        <li>SVG icon per environment — upload a custom icon displayed in the banner</li>
+        <li>Edit existing environments directly from the list (pencil button)</li>
+        <li>Custom environment type — define your own type name beyond the presets</li>
+        <li>Three-section banner layout — type on the left, description centered, icon on the right</li>
+        <li>Live search — filter environments by ID, type or description</li>
+        <li>Toast notifications — no more blocking alert() dialogs</li>
+        <li>Support for Power Pages and Power Platform Admin Center</li>
+        <li>Case-insensitive environment ID matching</li>
+      </ul>
+    </div>
+
     <!-- Environment configuration form -->
     <form id="environment-form">
       <div class="mb-3">
-        <h3 class="h3 mb-3 fw-normal"><img class="mb-3" src="icon48.png" alt="" width="48" height="48"> Add environment:</h3>
+        <h3 class="h3 mb-3 fw-normal">
+          <img class="mb-3" src="icon48.png" alt="" width="48" height="48">
+          <span id="form-title-text">Add environment:</span>
+        </h3>
       </div>
       <!-- Input for environment ID -->
       <div class="mb-3">
         <label for="environment-id">Environment ID</label>
         <input type="text" class="form-control" id="environment-id" required>
-        <div id="email-environment-id" class="form-text">Copy the ID from URL make.powerapps.com/environments/<u>ID</u>/ (or environments/<u>Default-ID</u>).</div>
+        <div class="form-text">Copy the ID from URL make.powerapps.com/environments/<u>ID</u>/ (or environments/<u>Default-ID</u>).</div>
       </div>
       <div class="row">
         <!-- Input for background color -->
         <div class="mb-3 col-md-2">
           <label for="environment-color">Background color</label>
-          <input type="color" class="form-control" style="width: 76px; height: 38px;" id="environment-color" required>
+          <input type="color" class="form-control" style="width: 76px; height: 38px;" id="environment-color" value="#ffffff" required>
         </div>
         <!-- Dropdown for environment type -->
         <div class="mb-3 col-md-3">
@@ -46,6 +88,7 @@
             <option value="Developer">Developer</option>
             <option value="User Acceptance Testing">User Acceptance Testing</option>
             <option value="Testing">Testing</option>
+            <option value="Custom">Custom…</option>
           </select>
         </div>
         <!-- Input for description -->
@@ -54,26 +97,84 @@
           <input type="text" class="form-control" id="environment-desc">
         </div>
       </div>
-      <button class="btn btn-primary" style="width: 100px;" type="submit">Save</button>
+      <!-- Custom type input (shown only when "Custom…" is selected) -->
+      <div class="mb-3" id="custom-type-row" style="display: none;">
+        <label for="environment-type-custom">Custom environment type</label>
+        <input type="text" class="form-control" id="environment-type-custom" placeholder="Enter custom type name..." maxlength="50">
+      </div>
+      <!-- SVG icon upload -->
+      <div class="mb-3">
+        <label for="environment-icon">Environment icon (SVG)</label>
+        <div class="d-flex align-items-center gap-2 mt-1">
+          <input type="file" class="form-control" id="environment-icon" accept=".svg,image/svg+xml">
+          <div id="icon-preview"
+               class="border rounded d-flex align-items-center justify-content-center flex-shrink-0"
+               style="width: 48px; height: 48px;"></div>
+          <button type="button" id="remove-icon-btn" class="btn btn-sm btn-outline-secondary flex-shrink-0" style="display: none;" title="Remove icon">
+            <i class="bi bi-x-circle"></i>
+          </button>
+        </div>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-primary" style="width: 100px;" id="submit-btn" type="submit">Save</button>
+        <button class="btn btn-outline-secondary" id="cancel-btn" type="button" style="display: none;">Cancel</button>
+      </div>
     </form>
     <hr>
-    <h4 class="h4 mb-3 fw-normal">Added environments:</h4>
+    <div class="d-flex align-items-center justify-content-between mb-2">
+      <h4 class="h4 mb-0 fw-normal">Added environments:</h4>
+      <input type="search" id="env-search" class="form-control form-control-sm w-50" placeholder="Filter by ID, type or description...">
+    </div>
 
     <!-- Table to display saved environments -->
     <table class="table table-hover">
       <thead>
         <tr>
           <th scope="col">#</th>
+          <th scope="col" style="width: 40px;">Icon</th>
           <th scope="col">Environment ID</th>
-          <th scope="col" style="width: 210px;">Environment type</th>
-          <th scope="col" style="width: 210px;">Background color</th>
+          <th scope="col" style="width: 180px;">Environment type</th>
+          <th scope="col" style="width: 140px;">Background color</th>
           <th scope="col">Description</th>
-          <th scope="col"></th>
+          <th scope="col" style="width: 90px;"></th>
         </tr>
       </thead>
       <tbody id="environment-list"></tbody>
     </table>
+    <hr>
+    <div class="text-center py-2">
+      <a href="https://www.buymeacoffee.com/citdev" target="_blank">
+        <img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me a Coffee" style="height: 60px !important; width: 217px !important;">
+      </a>
+    </div>
   </main>
+
+  <!-- Toast notifications (bottom-right) -->
+  <div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 10000;"></div>
+
+  <!-- Delete confirmation modal -->
+  <div id="delete-modal"
+       style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10001; align-items:center; justify-content:center;">
+    <div style="max-width:480px; width:90%;">
+      <div class="modal-content shadow-lg rounded">
+        <div class="modal-header border-bottom px-4 py-3">
+          <h5 class="modal-title mb-0">
+            <i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>Remove environment
+          </h5>
+        </div>
+        <div class="modal-body px-4 py-3">
+          <p class="mb-1">Are you sure you want to remove:</p>
+          <code id="delete-modal-id" class="text-break d-block mt-1 fs-6"></code>
+        </div>
+        <div class="modal-footer border-top px-4 py-3 d-flex gap-2 justify-content-end">
+          <button type="button" class="btn btn-secondary" id="delete-modal-cancel">Cancel</button>
+          <button type="button" class="btn btn-danger" id="delete-modal-confirm">
+            <i class="bi bi-trash"></i> Remove
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="options.js"></script>
 </body>

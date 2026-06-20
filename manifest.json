@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Power Platform Environment Colored Banner",
-  "version": "1.2",
+  "version": "3.0",
   "description": "Displays a color-coded banner on Power Platform pages, showing environment type and optional description.",
   "author": "Karol Kozłowski | CitDev",
   "homepage_url": "https://citdev.pl/",
@@ -33,7 +33,10 @@
         "https://make.gov.powerapps.us/*",
 
         "https://make.preview.powerapps.com/*",
-        "https://make.preview.powerautomate.com/*"
+        "https://make.preview.powerautomate.com/*",
+
+        "https://make.powerpages.microsoft.com/*",
+        "https://admin.powerplatform.microsoft.com/*"
       ],
       "js": [
         "content.js"
