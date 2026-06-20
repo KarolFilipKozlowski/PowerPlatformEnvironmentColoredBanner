@@ -21,9 +21,9 @@ function createEnvironmentBanner(environmentType, backgroundColor, environmentDe
     banner.style.left = "0";
     banner.style.width = "100%";
     banner.style.height = "18px";
-    banner.style.display = "flex";
+    banner.style.display = "grid";
+    banner.style.gridTemplateColumns = "minmax(0, 1fr) auto minmax(0, 1fr)";
     banner.style.alignItems = "center";
-    banner.style.justifyContent = "center";
     banner.style.fontSize = "12px";
     banner.style.zIndex = "9999";
     banner.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.2)";
@@ -35,34 +35,54 @@ function createEnvironmentBanner(environmentType, backgroundColor, environmentDe
   banner.style.color = textColor;
   banner.innerHTML = "";
 
+  // Left: environment type
+  const leftSection = document.createElement("span");
+  leftSection.style.cssText = "padding-left:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;";
+  leftSection.textContent = `Environment type: ${environmentType.toUpperCase()}`;
+  banner.appendChild(leftSection);
+
+  // Center: description (truly centered via grid 1fr auto 1fr)
+  const centerSection = document.createElement("span");
+  centerSection.style.cssText = "text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 4px;";
+  centerSection.textContent = environmentDesc || "";
+  banner.appendChild(centerSection);
+
+  // Right: SVG icon pushed to the right edge
+  const rightSection = document.createElement("span");
+  rightSection.style.cssText = "display:flex;justify-content:flex-end;align-items:center;padding-right:8px;";
+
   if (svgIcon) {
     const iconWrapper = document.createElement("span");
-    iconWrapper.style.cssText = "display:inline-flex;align-items:center;width:12px;height:12px;margin-right:5px;flex-shrink:0;overflow:hidden;";
+    iconWrapper.style.cssText = "display:inline-flex;align-items:center;width:12px;height:12px;overflow:hidden;flex-shrink:0;";
+    iconWrapper.style.color = textColor;
     iconWrapper.innerHTML = svgIcon;
     const svgEl = iconWrapper.querySelector("svg");
     if (svgEl) {
       svgEl.setAttribute("width", "12");
       svgEl.setAttribute("height", "12");
-      svgEl.style.cssText = "width:12px;height:12px;display:block;";
+      svgEl.style.cssText = "width:12px;height:12px;display:block;fill:currentColor;";
     }
-    banner.appendChild(iconWrapper);
+    rightSection.appendChild(iconWrapper);
   }
 
-  const textSpan = document.createElement("span");
-  textSpan.textContent = `Environment type: ${environmentType.toUpperCase()}${environmentDesc ? ` (${environmentDesc})` : ""}`;
-  banner.appendChild(textSpan);
+  banner.appendChild(rightSection);
 }
 
 // Function to retrieve environment data from chrome.storage
 function displayEnvironmentBanner(environmentId) {
   chrome.storage.sync.get("environments", (data) => {
     const environments = data.environments || {};
-    if (environments[environmentId]) {
-      const { environmentColor: color, environmentType: type, environmentDesc: desc } = environments[environmentId];
+
+    // Case-insensitive lookup: URL and stored keys may differ in letter case
+    const normalizedId = environmentId.toLowerCase();
+    const matchedKey = Object.keys(environments).find(k => k.toLowerCase() === normalizedId);
+
+    if (matchedKey) {
+      const { environmentColor: color, environmentType: type, environmentDesc: desc } = environments[matchedKey];
 
       chrome.storage.local.get("environmentIcons", (iconData) => {
         const icons = iconData.environmentIcons || {};
-        createEnvironmentBanner(type, color, desc, icons[environmentId] || null);
+        createEnvironmentBanner(type, color, desc, icons[matchedKey] || null);
       });
     } else {
       const banner = document.getElementById("environment-banner");
@@ -82,16 +102,20 @@ function monitorEnvironmentChanges() {
     const url = new URL(window.location.href);
     const pathSegments = url.pathname.split('/');
 
-    const environmentIdIndex = pathSegments.includes("environments")
-      ? pathSegments.indexOf("environments") + 1
-      : pathSegments.includes("e")
-      ? pathSegments.indexOf("e") + 1
+    // Normalize to lowercase for case-insensitive segment matching
+    const lowerSegments = pathSegments.map(s => s.toLowerCase());
+
+    const environmentIdIndex = lowerSegments.includes("environments")
+      ? lowerSegments.indexOf("environments") + 1
+      : lowerSegments.includes("e")
+      ? lowerSegments.indexOf("e") + 1
       : -1;
 
     const environmentId = environmentIdIndex > 0 ? pathSegments[environmentIdIndex] : null;
 
-    if (environmentId && environmentId !== lastEnvironmentId) {
-      lastEnvironmentId = environmentId;
+    // Compare normalized so casing changes in the URL don't trigger a redundant update
+    if (environmentId && environmentId.toLowerCase() !== lastEnvironmentId) {
+      lastEnvironmentId = environmentId.toLowerCase();
       displayEnvironmentBanner(environmentId);
     }
   };
