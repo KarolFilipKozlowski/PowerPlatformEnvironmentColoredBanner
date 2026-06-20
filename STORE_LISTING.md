@@ -179,6 +179,6 @@ Marquee: **1400 × 560 px**
 
 | Version | Notes |
 |---|---|
-| 1.2 | Added SVG icon support, environment editing, three-section banner layout, custom environment type, live filter, toast notifications, case-insensitive ID matching, optimized URL monitoring, support for Power Pages and Admin Center |
+| 3.0 | Added SVG icon support, environment editing, three-section banner layout, custom environment type, live filter, toast notifications, post-update What's New notification, case-insensitive ID matching, optimized URL monitoring, support for Power Pages and Admin Center |
 | 1.1 | Added support for US Government and Preview domains |
 | 1.0 | Initial release |
