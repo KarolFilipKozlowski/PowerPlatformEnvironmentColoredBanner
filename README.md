@@ -76,11 +76,11 @@ You can install the extension directly from a ZIP file without using the Chrome 
 
 ### Settings page
 
-![Settings page](https://citdev.pl/blog/wp-content/uploads/2024/11/image.png)
+![Settings page](media/options.png)
 
 ### Banner
 
-![Banner](https://citdev.pl/blog/wp-content/uploads/2024/11/image-5.png)
+![Banner](media/example.png)
 
 ---
 
