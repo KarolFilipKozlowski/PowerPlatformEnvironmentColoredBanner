@@ -76,11 +76,11 @@ You can install the extension directly from a ZIP file without using the Chrome 
 
 ### Settings page
 
-![Settings page](https://citdev.pl/blog/wp-content/uploads/2024/11/image.png)
+![Settings page](https://github.com/KarolFilipKozlowski/PowerPlatformEnvironmentColoredBanner/blob/version3/options.png)
 
 ### Banner
 
-![Banner](https://citdev.pl/blog/wp-content/uploads/2024/11/image-5.png)
+![Banner](https://github.com/KarolFilipKozlowski/PowerPlatformEnvironmentColoredBanner/blob/version3/example.png)
 
 ---
 
