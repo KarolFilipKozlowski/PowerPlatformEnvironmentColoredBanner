@@ -182,3 +182,52 @@ Marquee: **1400 × 560 px**
 | 3.0 | Added SVG icon support, environment editing, three-section banner layout, custom environment type, live filter, toast notifications, post-update What's New notification, case-insensitive ID matching, optimized URL monitoring, support for Power Pages and Admin Center |
 | 1.1 | Added support for US Government and Preview domains |
 | 1.0 | Initial release |
+
+---
+
+## Publish tab — "What's new" texts
+
+These go into the **"What's new in this version"** field when submitting an update in Chrome Web Store Developer Dashboard or Microsoft Edge Add-ons Partner Center.
+
+---
+
+### Version 1.1
+
+```
+Added support for additional Microsoft Power Platform domains:
+
+• Power Apps – US Government (make.gov.powerapps.us)
+• Power Automate – US Government (make.gov.powerautomate.us)
+• Power Apps Preview (make.preview.powerapps.com)
+• Power Automate Preview (make.preview.powerautomate.com)
+
+Users working in government or preview environments will now see the color-coded banner on those pages too.
+```
+
+---
+
+### Version 3.0
+
+```
+This is a major update with several new features and improvements:
+
+• SVG icon per environment — upload an SVG file from disk or paste SVG code directly; the icon is displayed on the right side of the banner and its color adapts automatically to the banner contrast
+
+• Environment editing — click the pencil button next to any saved environment to update its color, type, description or icon without re-entering the ID
+
+• Three-section banner layout — environment type on the left, description centered, SVG icon on the right
+
+• Custom environment type — define any free-form type name beyond the seven presets (Production, Default, Sandbox, Trial, Developer, UAT, Testing)
+
+• Live filter — search field above the environment list instantly filters rows by ID, type or description
+
+• Toast notifications — non-blocking success and warning messages replace native alert() dialogs; delete confirmation now uses a modal dialog instead of confirm()
+
+• What's New banner — shown once after an update so users know what changed
+
+• Case-insensitive ID matching — environment IDs in URLs and saved settings are now compared without regard to letter case
+
+• Optimized URL monitoring — replaced polling interval with MutationObserver (throttled via requestAnimationFrame) and History API events (popstate, hashchange)
+
+• New supported pages: Power Pages (make.powerpages.microsoft.com) and Power Platform Admin Center (admin.powerplatform.microsoft.com)
+```
