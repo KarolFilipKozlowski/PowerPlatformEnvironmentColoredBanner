@@ -17,7 +17,7 @@ Working across multiple environments (production, sandbox, UAT, developer…) ma
 - **Colored banner** — fixed 18 px strip at the top of every supported page; background color fully customizable per environment
 - **Three-section layout** — environment type on the left, description centered, SVG icon on the right
 - **Automatic text contrast** — banner text color (black or white) is calculated automatically based on the background luminance
-- **SVG icon per environment** — upload any SVG file as a visual identifier; icon color adapts to the banner contrast color
+- **SVG icon per environment** — add a visual identifier in two ways: upload an SVG file from disk, or paste SVG code directly into the text field; live preview updates as you type; icon color adapts to the banner contrast color
 - **Edit environments** — click the pencil icon in the list to pre-fill the form and update color, type, description or icon without re-entering the ID
 - **Custom environment type** — besides the seven presets (Production, Default, Sandbox, Trial, Developer, UAT, Testing) you can define any free-form type name
 - **Filter table** — live search above the environment list filters by ID, type or description
@@ -67,7 +67,9 @@ You can install the extension directly from a ZIP file without using the Chrome 
 2. Enter the **Environment ID** (GUID) — copy it from the URL: `make.powerapps.com/environments/`**`<ID>`**`/`
 3. Pick a **background color** using the color picker.
 4. Select an **environment type** (or choose *Custom…* and type your own).
-5. Optionally add a **description** and upload an **SVG icon**.
+5. Optionally add a **description** and an **SVG icon**:
+   - Click **Choose file** to upload an SVG file from disk, **or**
+   - Paste SVG code directly into the text field below the divider — the preview updates live.
 6. Click **Save** — the environment appears in the list below.
 7. To edit an existing entry, click the **pencil** button in the row and update the form. Click **Update** to apply.
 8. To remove an entry, click the **trash** button and confirm in the modal.
@@ -95,7 +97,7 @@ Praca w wielu środowiskach (produkcja, sandbox, testy, deweloper…) łatwo pro
 - **Kolorowy pasek** — stały pasek o wysokości 18 px u góry każdej obsługiwanej strony; kolor tła konfigurowalny osobno dla każdego środowiska
 - **Układ trójkolumnowy** — typ środowiska po lewej, opis na środku, ikona SVG po prawej
 - **Automatyczny kontrast tekstu** — kolor tekstu (czarny lub biały) dobierany automatycznie na podstawie luminancji tła
-- **Ikona SVG dla środowiska** — wgraj dowolny plik SVG jako wizualny identyfikator; kolor ikony dostosowuje się do koloru kontrastu paska
+- **Ikona SVG dla środowiska** — dodaj wizualny identyfikator na dwa sposoby: wgraj plik SVG z dysku lub wklej kod SVG bezpośrednio w pole tekstowe; podgląd aktualizuje się na żywo; kolor ikony dostosowuje się automatycznie do kontrastu paska
 - **Edycja środowisk** — kliknij ikonę ołówka w tabeli, aby wypełnić formularz danymi wybranego środowiska i zaktualizować kolor, typ, opis lub ikonę bez ponownego wpisywania ID
 - **Własny typ środowiska** — oprócz siedmiu predefiniowanych typów (Production, Default, Sandbox, Trial, Developer, UAT, Testing) możesz wpisać dowolną własną nazwę
 - **Filtrowanie tabeli** — pole wyszukiwania nad listą środowisk filtruje na żywo po ID, typie i opisie
@@ -145,7 +147,9 @@ Rozszerzenie można zainstalować bezpośrednio z pliku ZIP, bez korzystania z C
 2. Wpisz **Environment ID** (GUID) — skopiuj go z adresu URL: `make.powerapps.com/environments/`**`<ID>`**`/`
 3. Wybierz **kolor tła** za pomocą selektora kolorów.
 4. Wybierz **typ środowiska** (lub „Custom…" i wpisz własną nazwę).
-5. Opcjonalnie dodaj **opis** i wgraj **ikonę SVG**.
+5. Opcjonalnie dodaj **opis** i **ikonę SVG**:
+   - Kliknij **Wybierz plik**, aby wgrać plik SVG z dysku, **lub**
+   - Wklej kod SVG bezpośrednio w pole tekstowe poniżej separatora — podgląd aktualizuje się na żywo.
 6. Kliknij **Save** — środowisko pojawi się na liście poniżej.
 7. Aby edytować istniejący wpis, kliknij przycisk **ołówka** w wierszu i zaktualizuj formularz. Kliknij **Update**, aby zatwierdzić.
 8. Aby usunąć wpis, kliknij przycisk **kosza** i potwierdź w modalu.
