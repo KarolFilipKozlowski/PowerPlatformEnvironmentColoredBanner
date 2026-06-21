@@ -131,6 +131,7 @@ function startEditMode(id, envData, svgIcon) {
     document.getElementById("custom-type-row").style.display = "block";
   }
 
+  document.getElementById("svg-code").value = svgIcon || "";
   const iconPreview = document.getElementById("icon-preview");
   iconPreview.innerHTML = svgIcon || "";
   document.getElementById("remove-icon-btn").style.display = svgIcon ? "inline-flex" : "none";
@@ -155,6 +156,7 @@ function resetForm() {
   document.getElementById("custom-type-row").style.display = "none";
   document.getElementById("environment-desc").value = "";
   document.getElementById("environment-icon").value = "";
+  document.getElementById("svg-code").value = "";
   document.getElementById("icon-preview").innerHTML = "";
   document.getElementById("remove-icon-btn").style.display = "none";
 
@@ -218,6 +220,23 @@ document.getElementById("environment-type").addEventListener("change", (event) =
   }
 });
 
+// ---- SVG icon helpers ----
+
+function applyIconSvg(rawSvg) {
+  const svg = sanitizeSvg(rawSvg.trim());
+  pendingSvgContent = svg || null;
+  document.getElementById("icon-preview").innerHTML = svg || "";
+  document.getElementById("remove-icon-btn").style.display = svg ? "inline-flex" : "none";
+}
+
+function clearIcon() {
+  pendingSvgContent = null;
+  document.getElementById("environment-icon").value = "";
+  document.getElementById("svg-code").value = "";
+  document.getElementById("icon-preview").innerHTML = "";
+  document.getElementById("remove-icon-btn").style.display = "none";
+}
+
 // SVG file picker
 document.getElementById("environment-icon").addEventListener("change", (event) => {
   const file = event.target.files[0];
@@ -225,21 +244,19 @@ document.getElementById("environment-icon").addEventListener("change", (event) =
 
   const reader = new FileReader();
   reader.onload = (e) => {
-    const svg = sanitizeSvg(e.target.result);
-    pendingSvgContent = svg;
-    document.getElementById("icon-preview").innerHTML = svg;
-    document.getElementById("remove-icon-btn").style.display = "inline-flex";
+    document.getElementById("svg-code").value = e.target.result;
+    applyIconSvg(e.target.result);
   };
   reader.readAsText(file);
 });
 
-// Remove icon
-document.getElementById("remove-icon-btn").addEventListener("click", () => {
-  pendingSvgContent = null;
-  document.getElementById("environment-icon").value = "";
-  document.getElementById("icon-preview").innerHTML = "";
-  document.getElementById("remove-icon-btn").style.display = "none";
+// SVG textarea live preview
+document.getElementById("svg-code").addEventListener("input", (event) => {
+  applyIconSvg(event.target.value);
 });
+
+// Remove icon
+document.getElementById("remove-icon-btn").addEventListener("click", clearIcon);
 
 // Cancel edit
 document.getElementById("cancel-btn").addEventListener("click", resetForm);
