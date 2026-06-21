@@ -102,16 +102,29 @@
         <label for="environment-type-custom">Custom environment type</label>
         <input type="text" class="form-control" id="environment-type-custom" placeholder="Enter custom type name..." maxlength="50">
       </div>
-      <!-- SVG icon upload -->
+      <!-- SVG icon -->
       <div class="mb-3">
-        <label for="environment-icon">Environment icon (SVG)</label>
-        <div class="d-flex align-items-center gap-2 mt-1">
-          <input type="file" class="form-control" id="environment-icon" accept=".svg,image/svg+xml">
+        <label class="form-label">Environment icon (SVG)</label>
+        <!-- Upload from disk -->
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <input type="file" class="form-control form-control-sm" id="environment-icon" accept=".svg,image/svg+xml">
+        </div>
+        <!-- Divider -->
+        <div class="d-flex align-items-center gap-2 text-muted small mb-2">
+          <hr class="flex-grow-1 m-0">
+          <span>or paste SVG code</span>
+          <hr class="flex-grow-1 m-0">
+        </div>
+        <!-- SVG code textarea -->
+        <textarea class="form-control form-control-sm font-monospace" id="svg-code" rows="5"
+          placeholder='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">...</svg>'></textarea>
+        <!-- Preview + remove -->
+        <div class="d-flex align-items-center gap-2 mt-2">
           <div id="icon-preview"
                class="border rounded d-flex align-items-center justify-content-center flex-shrink-0"
                style="width: 48px; height: 48px;"></div>
-          <button type="button" id="remove-icon-btn" class="btn btn-sm btn-outline-secondary flex-shrink-0" style="display: none;" title="Remove icon">
-            <i class="bi bi-x-circle"></i>
+          <button type="button" id="remove-icon-btn" class="btn btn-sm btn-outline-secondary" style="display: none;" title="Remove icon">
+            <i class="bi bi-x-circle"></i> Remove icon
           </button>
         </div>
       </div>
@@ -154,7 +167,7 @@
 
   <!-- Delete confirmation modal -->
   <div id="delete-modal"
-       style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10001; align-items:center; justify-content:center;">
+       style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:10001; align-items:center; justify-content:center;">
     <div style="max-width:480px; width:90%;">
       <div class="modal-content shadow-lg rounded">
         <div class="modal-header border-bottom px-4 py-3">
