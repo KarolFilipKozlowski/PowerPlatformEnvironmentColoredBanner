@@ -61,6 +61,12 @@ function createEnvironmentBanner(environmentType, backgroundColor, environmentDe
       svgEl.setAttribute("width", "12");
       svgEl.setAttribute("height", "12");
       svgEl.style.cssText = "width:12px;height:12px;display:block;fill:currentColor;";
+      // Override hardcoded fill attributes on the root and all descendants
+      [svgEl, ...svgEl.querySelectorAll("*")].forEach(el => {
+        if (el.getAttribute("fill") !== "none") {
+          el.setAttribute("fill", "currentColor");
+        }
+      });
     }
     rightSection.appendChild(iconWrapper);
   }
